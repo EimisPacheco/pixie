@@ -1,0 +1,33 @@
+# API Keys and sensitive data
+.env
+*.key
+secrets.json
+
+# Build output (regenerated from source)
+dist/
+
+# Claude settings
+.claude/
+
+# Chrome extension packaging
+*.crx
+*.pem
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Backup files
+*.bak
+*~
+node_modules

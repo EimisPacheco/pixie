@@ -1,0 +1,611 @@
+/**
+ * Styles for Bolt.new Voice Assistant
+ */
+
+/* Recording states for floating voice buttons */
+#bolt-voice-btn[aria-pressed="true"] {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.15) 100%) !important;
+  border-color: rgba(239, 68, 68, 0.5) !important;
+  animation: pulse-recording-voice 2s ease-in-out infinite;
+}
+
+#bolt-voice-btn[aria-pressed="true"] > div:first-child {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.6) !important;
+  animation: icon-glow-red 2s ease-in-out infinite;
+}
+
+#bolt-agent-btn[aria-pressed="true"] {
+  background: linear-gradient(135deg, rgba(251, 146, 60, 0.15) 0%, rgba(234, 88, 12, 0.15) 100%) !important;
+  border-color: rgba(251, 146, 60, 0.5) !important;
+  animation: pulse-recording-agent 2s ease-in-out infinite;
+}
+
+#bolt-agent-btn[aria-pressed="true"] > div:first-child {
+  background: linear-gradient(135deg, #fb923c 0%, #ea580c 100%) !important;
+  box-shadow: 0 0 20px rgba(251, 146, 60, 0.6) !important;
+  animation: icon-glow-orange 2s ease-in-out infinite;
+}
+
+@keyframes pulse-recording-voice {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+  }
+}
+
+@keyframes pulse-recording-agent {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(251, 146, 60, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(251, 146, 60, 0);
+  }
+}
+
+@keyframes icon-glow-red {
+  0%, 100% {
+    box-shadow: 0 4px 20px rgba(239, 68, 68, 0.5);
+  }
+  50% {
+    box-shadow: 0 4px 30px rgba(239, 68, 68, 0.8);
+  }
+}
+
+@keyframes icon-glow-orange {
+  0%, 100% {
+    box-shadow: 0 4px 20px rgba(251, 146, 60, 0.5);
+  }
+  50% {
+    box-shadow: 0 4px 30px rgba(251, 146, 60, 0.8);
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Notification */
+.bolt-voice-notification {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: rgba(26, 26, 46, 0.95);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 10001;
+  animation: slideIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 280px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.bolt-voice-notification.success {
+  border-left: 3px solid #10b981;
+  color: #6ee7b7;
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(16, 185, 129, 0.1) 100%);
+}
+
+.bolt-voice-notification.error {
+  border-left: 3px solid #ef4444;
+  color: #fca5a5;
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(239, 68, 68, 0.1) 100%);
+}
+
+.bolt-voice-notification.warning {
+  border-left: 3px solid #f59e0b;
+  color: #fcd34d;
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(245, 158, 11, 0.1) 100%);
+}
+
+.bolt-voice-notification.info {
+  border-left: 3px solid #6366f1;
+  color: #a5b4fc;
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(99, 102, 241, 0.1) 100%);
+}
+
+.bolt-voice-notification.fade-out {
+  animation: slideOut 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100px) scale(0.95);
+    opacity: 0;
+  }
+}
+
+/* Transcription overlay */
+.bolt-voice-transcription {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(30px);
+  padding: 12px 20px;
+  background: linear-gradient(145deg, rgba(26, 26, 46, 0.95) 0%, rgba(22, 22, 38, 0.98) 100%);
+  color: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 10001;
+  opacity: 0;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 70%;
+  text-align: center;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  letter-spacing: -0.2px;
+}
+
+.bolt-voice-transcription.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Agent response panel */
+.bolt-voice-agent-panel {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 320px;
+  max-height: 400px;
+  background: linear-gradient(145deg, rgba(26, 26, 46, 0.98) 0%, rgba(22, 22, 38, 0.99) 100%);
+  border-radius: 16px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  z-index: 10001;
+  transform: translateX(100px) scale(0.95);
+  opacity: 0;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(20px);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.bolt-voice-agent-panel.show {
+  transform: translateX(0) scale(1);
+  opacity: 1;
+}
+
+.bolt-voice-agent-panel .panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.bolt-voice-agent-panel .panel-header .close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  border-radius: 6px;
+}
+
+.bolt-voice-agent-panel .panel-header .close-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.bolt-voice-agent-panel .panel-content {
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.bolt-voice-agent-panel .panel-content p {
+  margin: 0 0 10px 0;
+}
+
+.bolt-voice-agent-panel .panel-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .bolt-voice-agent-panel {
+    width: calc(100% - 40px);
+    right: 20px;
+    left: 20px;
+  }
+
+  .bolt-voice-transcription {
+    max-width: 85%;
+    font-size: 13px;
+    padding: 10px 16px;
+  }
+
+  .bolt-voice-notification {
+    right: 16px;
+    left: 16px;
+    max-width: none;
+  }
+}
+
+/* Settings Panel - Compact Modal */
+.bolt-voice-settings-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 10002;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.bolt-voice-settings-panel.show {
+  display: flex;
+  animation: modalFadeIn 0.2s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Modal Container */
+.settings-panel-wrapper {
+  position: relative;
+  background: #0f0f1a;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  width: 240px;
+  max-height: 70vh;
+  overflow: hidden;
+  animation: modalSlideUp 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes modalSlideUp {
+  from {
+    transform: translateY(30px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Modal Header */
+.settings-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  padding-right: 40px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.settings-icon {
+  font-size: 16px;
+}
+
+.settings-panel-header h3 {
+  margin: 0;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.settings-panel-wrapper .close-settings-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 18px;
+  cursor: pointer;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  transition: all 0.15s;
+  line-height: 1;
+  z-index: 1;
+}
+
+.settings-panel-wrapper .close-settings-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* Modal Body */
+.settings-panel-content {
+  padding: 10px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Form Fields */
+.settings-field {
+  margin-bottom: 8px;
+}
+
+.settings-field label {
+  display: block;
+  margin-bottom: 3px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.settings-field label .optional {
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 400;
+}
+
+.input-group {
+  display: flex;
+  gap: 6px;
+}
+
+.settings-field input[type="text"],
+.settings-field input[type="password"] {
+  flex: 1;
+  padding: 6px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 5px;
+  font-size: 11px;
+  font-family: inherit;
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  transition: all 0.15s;
+}
+
+.settings-field input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.settings-field input:focus {
+  outline: none;
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* Visibility Toggle Buttons */
+.toggle-visibility-btn,
+.toggle-gemini-visibility-btn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.15s;
+}
+
+.toggle-visibility-btn:hover,
+.toggle-gemini-visibility-btn:hover {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.15);
+  color: white;
+}
+
+/* Action Buttons */
+.settings-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.settings-actions .btn-primary,
+.settings-actions .btn-secondary {
+  flex: 1;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.settings-actions .btn-primary {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.settings-actions .btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.5);
+}
+
+.settings-actions .btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.settings-actions .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+}
+
+/* Status Messages */
+.settings-status {
+  margin-top: 8px;
+  padding: 6px 8px;
+  border-radius: 5px;
+  font-size: 10px;
+  display: none;
+  text-align: center;
+}
+
+.settings-status.success {
+  display: block;
+  background: rgba(16, 185, 129, 0.15);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.settings-status.error {
+  display: block;
+  background: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.settings-status.info {
+  display: block;
+  background: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+/* Links */
+.settings-links {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.settings-links a {
+  color: rgba(165, 180, 252, 0.8);
+  text-decoration: none;
+  font-size: 9px;
+  transition: color 0.15s;
+}
+
+.settings-links a:hover {
+  color: #c4b5fd;
+}
+
+/* Settings - Additional Elements */
+.settings-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 10px 0;
+}
+
+.field-hint {
+  display: block;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+.btn-icon {
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+.settings-info {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.info-section {
+  margin-bottom: 8px;
+}
+
+.info-title {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 6px 0;
+  font-weight: 500;
+}
+
+.info-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+  color: rgba(165, 180, 252, 0.8);
+  text-decoration: none;
+  font-size: 10px;
+  transition: all 0.15s;
+}
+
+.info-link:hover {
+  background: rgba(99, 102, 241, 0.15);
+  color: #c4b5fd;
+}
+
+.link-arrow {
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+/* Dark mode support - Settings panel is already dark themed */
+@media (prefers-color-scheme: dark) {
+  .bolt-voice-notification {
+    background: #1f2937;
+    color: #f3f4f6;
+  }
+
+  .bolt-voice-agent-panel {
+    background: #1f2937;
+  }
+
+  .bolt-voice-agent-panel .panel-content {
+    color: #e5e7eb;
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "Bolt.new Voice Assistant",
+  "version": "1.0.0",
+  "description": "AI-powered voice assistant for bolt.new using ElevenLabs Scribe v2 Realtime",
+  "icons": {
+    "16": "src/icons/icon16.png",
+    "48": "src/icons/icon48.png",
+    "128": "src/icons/icon128.png"
+  },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://bolt.new/*",
+    "https://api.elevenlabs.io/*"
+  ],
+  "background": {
+    "service_worker": "dist/background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://bolt.new/*"],
+      "js": ["src/content.js"],
+      "css": ["src/styles/content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "src/popup.html",
+    "default_icon": {
+      "16": "src/icons/icon16.png",
+      "48": "src/icons/icon48.png",
+      "128": "src/icons/icon128.png"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["src/icons/*", "src/audio-worklet-processor.js"],
+      "matches": ["https://bolt.new/*"]
+    }
+  ]
+}

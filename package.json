@@ -1,0 +1,19 @@
+{
+  "name": "bolt-voice-assistant",
+  "version": "1.0.0",
+  "description": "Voice assistant for bolt.new using ElevenLabs",
+  "main": "src/background.js",
+  "scripts": {
+    "build": "esbuild src/background.js --bundle --outfile=dist/background.js --platform=browser --format=esm",
+    "watch": "esbuild src/background.js --bundle --outfile=dist/background.js --platform=browser --format=esm --watch",
+    "dev": "npm run watch"
+  },
+  "dependencies": {
+    "@elevenlabs/client": "^0.13.1",
+    "@elevenlabs/elevenlabs-js": "^2.33.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.20.0",
+    "sharp": "^0.34.5"
+  }
+}
