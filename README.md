@@ -132,5 +132,3 @@ After making changes, reload the extension in `chrome://extensions/`
 MIT License
 
 ---
-
-Built for the Chrome AI Hackathon 2025
